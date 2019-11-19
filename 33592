@@ -1,0 +1,1279 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Что сегодня сделаем\n",
+    "Библиотеку для получения курсов валют в 2 строки"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from libs.exchange import Rate"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "65.4287"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Rate().usd()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Rate('full').AZN()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Упражнение\n",
+    "Дана строка со значениями, которые разделены запятыми:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "line = '2019-07-01,organic,4293'"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def line_counter(line):\n",
+    "    ncolumn_list = []\n",
+    "    ncolumn_list = line.split(',')\n",
+    "    return len(ncolumn_list)    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "3"
+      ]
+     },
+     "execution_count": 34,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "line = '2019-07-01,organic,4293'\n",
+    "line_counter(line)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Задача**\n",
+    "\n",
+    "Напишите функцию column_count, которая возвращает число столбцов в такой строке\n",
+    "\n",
+    "**Подсказка**\n",
+    "\n",
+    "Можно перевести эту строку в список с помощью метода split: line.split(','). И затем посчитать количество элементов в нем (функция len)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Классы\n",
+    "Пример использования переменной в разных методах"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# метод __init__ выполняется при вызове класса\n",
+    "# Приянто писать название класса с большой буквы\n",
+    "# Когда объявляем класс, который не наследуюет других классов принято добавлять метод __init__\n",
+    "class Rate:\n",
+    "    def __init__(self):\n",
+    "        # Сначала объявляется название переменной, которое мы будем использовать внутри класса\n",
+    "        # Назначим переменную format и назначим ей значение. \n",
+    "        self.format = 'value'\n",
+    "        print(self.format)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "value\n"
+     ]
+    }
+   ],
+   "source": [
+    "r = Rate()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 48,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Rate:\n",
+    "    def __init__(self, value = 'value'):\n",
+    "        self.format = 'value'\n",
+    "    # в методе ниже применена переменная, которая указана выше.\n",
+    "    def show_current_format(self):\n",
+    "        return self.format"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 46,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r = Rate()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'value'"
+      ]
+     },
+     "execution_count": 47,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "r.show_current_format()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Пример инициализации со значением переменной"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 49,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Rate:\n",
+    "    # функция инит вызывает класс с определенными параметрами\n",
+    "    def __init__(self, format_):\n",
+    "        self.format = format_\n",
+    "    \n",
+    "    def show_current_format(self):\n",
+    "        return self.format"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 50,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'value'"
+      ]
+     },
+     "execution_count": 50,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "r = Rate(format_='value')\n",
+    "r.show_current_format()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'full'"
+      ]
+     },
+     "execution_count": 51,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "r.format = 'full'\n",
+    "r.show_current_format()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Создаем класс\n",
+    "class Rate:\n",
+    " # функция с переменной, которая действует во всем классе\n",
+    "    def __init__(self, format_= 'value'):\n",
+    "        self.format = format_\n",
+    " # Выбираем формат, в котором выдается ответ\n",
+    "    def show_current_format(self):\n",
+    "        print(self.format)\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 53,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r = Rate(format_ = '123')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'123'"
+      ]
+     },
+     "execution_count": 55,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "r.format"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 64,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#  вызов по умолчанию\n",
+    "def func(format_='123'):\n",
+    "    print(format_)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 65,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "123\n"
+     ]
+    }
+   ],
+   "source": [
+    "func()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Полная версия класса"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 66,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import requests"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 67,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Rate:\n",
+    "    def __init__(self, format_='value'):\n",
+    "        self.format = format_\n",
+    "    \n",
+    "    def exchange_rates(self):\n",
+    "        \"\"\"\n",
+    "        Возвращает ответ сервиса с информацией о валютах в виде:\n",
+    "        \n",
+    "        {\n",
+    "            'AMD': {\n",
+    "                'CharCode': 'AMD',\n",
+    "                'ID': 'R01060',\n",
+    "                'Name': 'Армянских драмов',\n",
+    "                'Nominal': 100,\n",
+    "                'NumCode': '051',\n",
+    "                'Previous': 14.103,\n",
+    "                'Value': 14.0879\n",
+    "                },\n",
+    "            ...\n",
+    "        }\n",
+    "        \"\"\"\n",
+    "        r = requests.get('https://www.cbr-xml-daily.ru/daily_json.js')\n",
+    "        return r.json()['Valute']\n",
+    "    \n",
+    "    def make_format(self, currency):\n",
+    "        \"\"\"\n",
+    "        Возвращает информацию о валюте currency в двух вариантах:\n",
+    "        - полная информация о валюте при self.format = 'full':\n",
+    "        Rate('full').make_format('EUR')\n",
+    "        {\n",
+    "            'CharCode': 'EUR',\n",
+    "            'ID': 'R01239',\n",
+    "            'Name': 'Евро',\n",
+    "            'Nominal': 1,\n",
+    "            'NumCode': '978',\n",
+    "            'Previous': 79.6765,\n",
+    "            'Value': 79.4966\n",
+    "        }\n",
+    "        \n",
+    "        Rate('value').make_format('EUR')\n",
+    "        79.4966\n",
+    "        \"\"\"\n",
+    "        response = self.exchange_rates()\n",
+    "        \n",
+    "        if currency in response:\n",
+    "            if self.format == 'full':\n",
+    "                return response[currency]\n",
+    "            \n",
+    "            if self.format == 'value':\n",
+    "                return response[currency]['Value']\n",
+    "        \n",
+    "        return 'Error'\n",
+    "\n",
+    "    # методы которые переиспользуют вышестоящие методы    \n",
+    "    def eur(self):\n",
+    "        \"\"\"Возвращает курс евро на сегодня в формате self.format\"\"\"\n",
+    "        return self.make_format('EUR')\n",
+    "    \n",
+    "    def usd(self):\n",
+    "        \"\"\"Возвращает курс доллара на сегодня в формате self.format\"\"\"\n",
+    "        return self.make_format('USD')\n",
+    "    \n",
+    "    def brl(self):\n",
+    "        \"\"\"Возвращает курс бразильского риала на сегодня в формате self.format\"\"\"\n",
+    "        return self.make_format('BRL')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 68,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r=Rate()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "?r.format"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 60,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# описание функции\n",
+    "?r.exchange_rates"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "16.4626"
+      ]
+     },
+     "execution_count": 69,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "r.brl()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'CharCode': 'EUR',\n",
+       " 'ID': 'R01239',\n",
+       " 'Name': 'Евро',\n",
+       " 'Nominal': 1,\n",
+       " 'NumCode': '978',\n",
+       " 'Previous': 73.1231,\n",
+       " 'Value': 73.4149}"
+      ]
+     },
+     "execution_count": 62,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Rate('full').eur()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'CharCode': 'BRL',\n",
+       " 'ID': 'R01115',\n",
+       " 'Name': 'Бразильский реал',\n",
+       " 'Nominal': 1,\n",
+       " 'NumCode': '986',\n",
+       " 'Previous': 16.6054,\n",
+       " 'Value': 16.4626}"
+      ]
+     },
+     "execution_count": 70,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Rate('full').brl()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 71,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "16.4626"
+      ]
+     },
+     "execution_count": 71,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "r.brl()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 72,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "65.6017"
+      ]
+     },
+     "execution_count": 72,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Rate().usd()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 73,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "rates = Rate('full')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "?rates.eur"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 74,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'CharCode': 'EUR',\n",
+       " 'ID': 'R01239',\n",
+       " 'Name': 'Евро',\n",
+       " 'Nominal': 1,\n",
+       " 'NumCode': '978',\n",
+       " 'Previous': 73.1231,\n",
+       " 'Value': 73.4149}"
+      ]
+     },
+     "execution_count": 74,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "rates.eur()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Система повышения сотрудников\n",
+    "Начало"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Упражнение\n",
+    "Создайте класс Employee. При инициализации указываются имя сотрудника (name) и трудовой стаж в пройденных аккредитациях (seniority). Напишите метод init, в котором задаются соответствующие переменные - self.name и self.seniority."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 75,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Employee:\n",
+    "    def __init__(self, name, seniority):\n",
+    "        self.name = name\n",
+    "        self.seniority = seniority"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<__main__.Employee at 0x18e4d453e80>"
+      ]
+     },
+     "execution_count": 70,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Employee('dfd','dfd')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 73,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "TypeError",
+     "evalue": "__init__() missing 2 required positional arguments: 'name' and 'seniority'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[1;32m<ipython-input-73-bdff709bec9d>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m()\u001b[0m\n\u001b[1;32m----> 1\u001b[1;33m \u001b[0mEmployee\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[1;31mTypeError\u001b[0m: __init__() missing 2 required positional arguments: 'name' and 'seniority'"
+     ]
+    }
+   ],
+   "source": [
+    "Employee()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Упражнение\n",
+    "Заведите переменную self.grade при инициализации класса со значением 0. Добавьте метод grade_up, который увеличивает это значение на 1. На всякий случай - этот метод может ничего не возвращать, только изменять переменную."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Наследование"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Разработчикам финансового департамента помимо курса надо работать с кодами валют. Как сохранить сохранить разработку класса Rate у нас, а полезные функции передать финансистам?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 75,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# создается новый класс, который инициализирует наш класс\n",
+    "class CurrencyCodes(Rate):\n",
+    "    def __init__(self):\n",
+    "        super().__init__(format_='full') # "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Теперь классу CurrencyCodes доступны все методы класса Rate. Можем продолжать разработку в нужном направлении."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 76,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'CharCode': 'USD',\n",
+       " 'ID': 'R01235',\n",
+       " 'Name': 'Доллар США',\n",
+       " 'Nominal': 1,\n",
+       " 'NumCode': '840',\n",
+       " 'Previous': 65.2543,\n",
+       " 'Value': 65.4287}"
+      ]
+     },
+     "execution_count": 76,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "CurrencyCodes().usd()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 77,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class CurrencyCodes(Rate):\n",
+    "    def __init__(self):\n",
+    "        super().__init__(format_='full')\n",
+    "    \n",
+    "    def currency_id(self, currency):\n",
+    "        \"\"\"Получение идентификатора валюты\"\"\"\n",
+    "        return self.make_format(currency)['ID']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 78,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "currency = CurrencyCodes()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 79,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'R01235'"
+      ]
+     },
+     "execution_count": 79,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "currency.currency_id('USD')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Система повышения сотрудников\n",
+    "Пригодится для домашнего задания"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 80,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Employee:\n",
+    "    def __init__(self, name, seniority):\n",
+    "        self.name = name\n",
+    "        self.seniority = seniority\n",
+    "        \n",
+    "        self.grade = 1\n",
+    "    \n",
+    "    def grade_up(self):\n",
+    "        \"\"\"Повышает уровень сотрудника\"\"\"\n",
+    "        self.grade += 1\n",
+    "    \n",
+    "    def publish_grade(self):\n",
+    "        \"\"\"Публикация результатов аккредитации сотрудников\"\"\"\n",
+    "        print(self.name, self.grade)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 81,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Developer(Employee):\n",
+    "    def __init__(self, name, seniority):\n",
+    "        super().__init__(name, seniority)\n",
+    "    \n",
+    "    def check_if_it_is_time_for_upgrade(self):\n",
+    "        # для каждой аккредитации увеличиваем счетчик на 1\n",
+    "        # пока считаем, что все разработчики проходят аккредитацию\n",
+    "        self.seniority += 1\n",
+    "        \n",
+    "        # условие повышения сотрудника из презентации\n",
+    "        if self.seniority % 5 == 0:\n",
+    "            self.grade_up()\n",
+    "        \n",
+    "        # публикация результатов\n",
+    "        return self.publish_grade()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 82,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# проверяем как работает система повышения сотрудников на примере отдела разработки\n",
+    "\n",
+    "# разработчик Александр только что пришел в компанию\n",
+    "alex = Developer('Александр', 0)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 83,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Александр 1\n",
+      "Александр 1\n",
+      "Александр 1\n",
+      "Александр 1\n",
+      "Александр 2\n",
+      "Александр 2\n",
+      "Александр 2\n",
+      "Александр 2\n",
+      "Александр 2\n",
+      "Александр 3\n",
+      "Александр 3\n",
+      "Александр 3\n",
+      "Александр 3\n",
+      "Александр 3\n",
+      "Александр 4\n",
+      "Александр 4\n",
+      "Александр 4\n",
+      "Александр 4\n",
+      "Александр 4\n",
+      "Александр 5\n"
+     ]
+    }
+   ],
+   "source": [
+    "for i in range(20):\n",
+    "    alex.check_if_it_is_time_for_upgrade()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 84,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "irina = Developer('Ирина', 5)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 85,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Ирина 1\n",
+      "Ирина 1\n",
+      "Ирина 1\n",
+      "Ирина 1\n",
+      "Ирина 2\n",
+      "Ирина 2\n",
+      "Ирина 2\n",
+      "Ирина 2\n",
+      "Ирина 2\n",
+      "Ирина 3\n",
+      "Ирина 3\n",
+      "Ирина 3\n",
+      "Ирина 3\n",
+      "Ирина 3\n",
+      "Ирина 4\n",
+      "Ирина 4\n",
+      "Ирина 4\n",
+      "Ирина 4\n",
+      "Ирина 4\n",
+      "Ирина 5\n"
+     ]
+    }
+   ],
+   "source": [
+    "for i in range(20):\n",
+    "    irina.check_if_it_is_time_for_upgrade()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Домашнее задание задача 3\n",
+    "\n",
+    "Напишите класс Designer, который учитывает количество международных премий для дизайнеров. Считайте, что при выходе на работу сотрудник уже имеет две премии и их количество не меняется со стажем (конечно если хотите это можно вручную менять). Выполните проверку для 20 аккредитаций дизайнера Елены."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "elena = Designer('Елена', seniority=0, awards=2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "for i in range(20):\n",
+    "    elena.check_if_it_is_time_for_upgrade()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Импорт классов и функций"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from libs.exchange import my_sum"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "3"
+      ]
+     },
+     "execution_count": 87,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "my_sum(1, 2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 88,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from libs.exchange import Rate"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 89,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "38.5669"
+      ]
+     },
+     "execution_count": 89,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Rate().AZN()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 90,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# такой способ импорта крайне не рекомендуется\n",
+    "from libs.exchange import *"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Если библиотека лежит в произвольной папке"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import sys\n",
+    "sys.path.append('адрес_папки_с_файлами')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# пример\n",
+    "\n",
+    "import sys\n",
+    "sys.path.append('/Users/kbashevoy/Desktop/Нетология/Занятия/Занятие 4/libs')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from exchange import my_sum"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "my_sum(3, 3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Используйте git для обновления версий\n",
+    "Если версия библиотеки изменится, то просто обновите ее с помощью команд:\n",
+    "```bash\n",
+    "# заходим в любую папку репозитория\n",
+    "cd exchange_rates\n",
+    "\n",
+    "# обновляемся до последней версии\n",
+    "git pull\n",
+    "\n",
+    "# если будем магия с ветками\n",
+    "git pull origin master\n",
+    "```\n",
+    "\n",
+    "В некоторых случаях для обновления версии библиотек надо перезапустить ядро вашего jupyter notebook"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from libs.exchange_rates.exchange_lib import Rate"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Rate().eur()"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
