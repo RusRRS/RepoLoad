@@ -1,0 +1,1832 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{pyda\_02\_???? ?????? ? ?????}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Лекция 02. Типы данных и
+циклы}\label{ux43bux435ux43aux446ux438ux44f-02.-ux442ux438ux43fux44b-ux434ux430ux43dux43dux44bux445-ux438-ux446ux438ux43aux43bux44b}
+
+    \subsection{Оглавление:}\label{ux43eux433ux43bux430ux432ux43bux435ux43dux438ux435}
+
+\begin{itemize}
+\tightlist
+\item
+  Section \ref{1}
+\item
+  Section \ref{2}
+\item
+  Section \ref{3}
+\item
+  Section \ref{4}
+\item
+  Section \ref{5}
+\item
+  Section \ref{6}
+\item
+  Section \ref{7}
+\item
+  Section \ref{8}
+\item
+  Section \ref{9}
+\item
+  Section \ref{10}
+\end{itemize}
+
+    \subsection{02.01. Простые типы данных
+}\label{ux43fux440ux43eux441ux442ux44bux435-ux442ux438ux43fux44b-ux434ux430ux43dux43dux44bux445}
+
+    \begin{itemize}
+\tightlist
+\item
+  integer (целые числа);
+\item
+  float (числа с плавающей точкой);
+\item
+  string (строка/текст);
+\item
+  boolean (булевый/логический тип).
+\end{itemize}
+
+    \textbf{\emph{type()}} - Узнать тип объекта
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{my\PYZus{}integer} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n+nb}{type}\PY{p}{(}\PY{n}{my\PYZus{}integer}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} int
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{my\PYZus{}float} \PY{o}{=} \PY{l+m+mf}{5.5}
+        \PY{n+nb}{type}\PY{p}{(}\PY{n}{my\PYZus{}float}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} float
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{my\PYZus{}string} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hello World!}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{my\PYZus{}string\PYZus{}2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello World}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n+nb}{type}\PY{p}{(}\PY{n}{my\PYZus{}string}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} str
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{my\PYZus{}bool} \PY{o}{=} \PY{k+kc}{True}
+        \PY{n}{my\PYZus{}bool} \PY{o}{=} \PY{k+kc}{False}
+        \PY{n+nb}{type}\PY{p}{(}\PY{n}{my\PYZus{}bool}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} bool
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{5}
+        \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZgt{}} \PY{n}{y}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'bool'>
+
+    \end{Verbatim}
+
+    \textbf{\emph{int(),float(), bool(), str()}} - Изменить тип объекта
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} преобразование типов}
+        \PY{n}{salary} \PY{o}{=} \PY{l+m+mi}{1000}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ваша годовая зарплата составляет }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{salary} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ условных единиц}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        TypeError                                 Traceback (most recent call last)
+
+        <ipython-input-6-86c068f79d5d> in <module>()
+          1 \# преобразование типов
+          2 salary = 1000
+    ----> 3 print('Ваша годовая зарплата составляет ' + salary + ' условных единиц')
+    
+
+        TypeError: must be str, not int
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ваша годовая зарплата составляет }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{salary}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ условных единиц}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ваша годовая зарплата составляет 1000 условных единиц
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} неявное преобразование типов}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{20} \PY{o}{/} \PY{l+m+mf}{5.1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+3.9215686274509807
+
+    \end{Verbatim}
+
+    \subsection{02.02. Строки }\label{ux441ux442ux440ux43eux43aux438}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Конка}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{тенация}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 'Конкатенация'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{my\PYZus{}string} \PY{o}{*} \PY{l+m+mi}{3}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 'Hello World!Hello World!Hello World!'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{my\PYZus{}string}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 'HELLO WORLD!'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{my\PYZus{}string}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 'hello world!'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{my\PYZus{}string}\PY{o}{.}\PY{n}{capitalize}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Первую букву каждого слова к верхнему регистру}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 'Hello world!'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{my\PYZus{}string}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hello}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Goodbye}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 'Goodbye World!'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{my\PYZus{}string}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 12
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} индексация и срезы}
+         \PY{n}{my\PYZus{}string} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hello World}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{my\PYZus{}string}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 'l'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{my\PYZus{}string}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 'o'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{my\PYZus{}string}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]} \PY{c+c1}{\PYZsh{} Первый элемент включительно, последний нет}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 'Hello'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{my\PYZus{}string}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{c+c1}{\PYZsh{} С шагом 2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 'HloW'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{my\PYZus{}string}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} 'World'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{my\PYZus{}string}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 'Hello'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{my\PYZus{}string}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} 'dlroW olleH'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} проверка на вхождение элемента в объект при помощи in (есть обратная операция not in)}
+         \PY{n}{target\PYZus{}string} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wo}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{if} \PY{n}{target\PYZus{}string} \PY{o+ow}{in} \PY{n}{my\PYZus{}string}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{find!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+find!
+
+    \end{Verbatim}
+
+    \textbf{f-строки}
+
+Добавляя префикс f к строке можно встраивать в нее произвольные
+выражения при помощи фигурных скобок -- \{\}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} f\PYZhy{}строки}
+         \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oleg}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello, }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{name.capitalize()\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 'Hello, Oleg'
+\end{Verbatim}
+            
+    \subsection{02.03. Списки }\label{ux441ux43fux438ux441ux43aux438}
+
+Хранение объектов различных типов. Изменяемый тип данных.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{month\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Apr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{May}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jul}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aug}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{income\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{13000}\PY{p}{,} \PY{l+m+mi}{14000}\PY{p}{,} \PY{l+m+mi}{14300}\PY{p}{,} \PY{l+m+mi}{15000}\PY{p}{,} \PY{l+m+mi}{13800}\PY{p}{,} \PY{l+m+mi}{13000}\PY{p}{,} \PY{l+m+mi}{14900}\PY{p}{,} \PY{l+m+mi}{15200}\PY{p}{,} \PY{l+m+mi}{15300}\PY{p}{]}
+         \PY{n}{income\PYZus{}by\PYZus{}months} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{13000}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{14000}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{14300}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Apr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{15000}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{May}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{13800}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jun}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{13000}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jul}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{14900}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aug}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{15200}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{15300}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{month\PYZus{}list}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{income\PYZus{}list}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'list'>
+<class 'list'>
+<class 'list'>
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} индексация элементов в списке}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{month\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{month\PYZus{}list}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Jan
+Sep
+['Jun', 13000]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} срезы}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[['Jan', 13000], ['Feb', 14000]]
+--------------
+[['Feb', 14000], ['Mar', 14300]]
+--------------
+[['Mar', 14300], ['Apr', 15000], ['May', 13800], ['Jun', 13000], ['Jul', 14900], ['Aug', 15200], ['Sep', 15300]]
+--------------
+[['Jan', 13000], ['Feb', 14000], ['Mar', 14300]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} можно обращаться к любому уровню вложенности}
+         \PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 'Jan'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} изменение списков}
+         \PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{13100}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[['Jan', 13100], ['Feb', 14000], ['Mar', 14300], ['Apr', 15000], ['May', 13800], ['Jun', 13000], ['Jul', 14900], ['Aug', 15200], ['Sep', 15300]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{13200}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{13900}\PY{p}{]}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[['Jan', 13200], ['Feb', 13900], ['Mar', 14300], ['Apr', 15000], ['May', 13800], ['Jun', 13000], ['Jul', 14900], ['Aug', 15200], ['Sep', 15300]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{income\PYZus{}by\PYZus{}months\PYZus{}2} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nov}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{15400}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{17000}\PY{p}{]}\PY{p}{]}
+         \PY{n}{income\PYZus{}by\PYZus{}month} \PY{o}{=} \PY{n}{income\PYZus{}by\PYZus{}months} \PY{o}{+} \PY{n}{income\PYZus{}by\PYZus{}months\PYZus{}2}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}month}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[['Jan', 13200], ['Feb', 13900], ['Mar', 14300], ['Apr', 15000], ['May', 13800], ['Jun', 13000], ['Jul', 14900], ['Aug', 15200], ['Sep', 15300], ['Nov', 15400], ['Dec', 17000]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} сумма элементов}
+         \PY{n+nb}{sum}\PY{p}{(}\PY{n}{income\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 128500
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} сортировка по возрастанию}
+         \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{income\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} [13000, 13000, 13800, 14000, 14300, 14900, 15000, 15200, 15300]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} изменить порядок сортировки}
+         \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{income\PYZus{}list}\PY{p}{,} \PY{n}{reverse} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} [15300, 15200, 15000, 14900, 14300, 14000, 13800, 13000, 13000]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} а это сортировка строк по алфавиту}
+         \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{month\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} ['Apr', 'Aug', 'Feb', 'Jan', 'Jul', 'Jun', 'Mar', 'May', 'Sep']
+\end{Verbatim}
+            
+    \subsection{02.04. Распаковка списков
+}\label{ux440ux430ux441ux43fux430ux43aux43eux432ux43aux430-ux441ux43fux438ux441ux43aux43eux432}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{first}\PY{p}{,} \PY{n}{second}\PY{p}{,} \PY{n}{third} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{первый}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{второй}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{третий}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{second}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} 'второй'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} когда число элементов неизвестно}
+         \PY{n}{first}\PY{p}{,} \PY{o}{*}\PY{n}{other} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{первый}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{второй}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{третий}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{first}\PY{p}{,} \PY{n}{other}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} ('первый', ['второй', 'третий'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{first}\PY{p}{,} \PY{o}{*}\PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{last} \PY{o}{=}  \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{первый}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{второй}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{третий}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{четвертый}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{first}\PY{p}{,} \PY{n}{last}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} ('первый', 'четвертый')
+\end{Verbatim}
+            
+    \subsection{02.05. Операции со списками
+}\label{ux43eux43fux435ux440ux430ux446ux438ux438-ux441ux43e-ux441ux43fux438ux441ux43aux430ux43cux438}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} Удаляем элемент по индексу}
+         \PY{k}{del}\PY{p}{(}\PY{n}{income\PYZus{}by\PYZus{}months}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{income\PYZus{}by\PYZus{}months}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} [['Jan', 13200],
+          ['Feb', 13900],
+          ['Mar', 14300],
+          ['Apr', 15000],
+          ['May', 13800],
+          ['Jun', 13000],
+          ['Jul', 14900],
+          ['Aug', 15200]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} удаляем элемент по значению}
+         \PY{n}{month\PYZus{}list}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{month\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} добавляем элемент в конец списка}
+         \PY{n}{income\PYZus{}by\PYZus{}months}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dec}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{17000}\PY{p}{]}\PY{p}{)}
+         \PY{n}{income\PYZus{}by\PYZus{}months}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} [['Jan', 13200],
+          ['Feb', 13900],
+          ['Mar', 14300],
+          ['Apr', 15000],
+          ['May', 13800],
+          ['Jun', 13000],
+          ['Jul', 14900],
+          ['Aug', 15200],
+          ['Dec', 17000]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} добавляем элемент по нужному индексу}
+         \PY{n}{income\PYZus{}list}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1111111}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{income\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[13000, 14000, 1111111, 14300, 15000, 13800, 13000, 14900, 15200, 15300]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{} считаем количество вхождений элемента в список}
+         \PY{n}{income\PYZus{}list}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+m+mi}{13000}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} 2
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} узнаем индекс элемента в списка (только первое вхождение!)}
+         \PY{n}{income\PYZus{}list}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{l+m+mi}{13000}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} разворачиваем список}
+         \PY{n}{month\PYZus{}list}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+         \PY{n}{month\PYZus{}list}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} ['Sep', 'Aug', 'Jul', 'Jun', 'May', 'Apr', 'Mar', 'Feb']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} узнаем длину списка}
+         \PY{n+nb}{len}\PY{p}{(}\PY{n}{income\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} 10
+\end{Verbatim}
+            
+    \subsection{02.06. Списки и строки
+}\label{ux441ux43fux438ux441ux43aux438-ux438-ux441ux442ux440ux43eux43aux438}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{queries\PYZus{}string} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{смотреть сериалы онлайн,новости спорта,афиша кино,курс доллара,сериалы этим летом,курс по питону,сериалы про спорт}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} преобразование строки в список (например, из CSV\PYZhy{}файла)}
+         \PY{n}{queries\PYZus{}string}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} ['смотреть сериалы онлайн',
+          'новости спорта',
+          'афиша кино',
+          'курс доллара',
+          'сериалы этим летом',
+          'курс по питону',
+          'сериалы про спорт']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} Преобразование списка в строку}
+         
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Столбец 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Столбец 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Столбец 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} 'Столбец 1,Столбец 2,Столбец 3'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} проверка вхождения элемента в список:}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsq{}Москва\PYZsq{} in [\PYZsq{}Ленинград\PYZsq{}, \PYZsq{}Одесса\PYZsq{}, \PYZsq{}Севастополь\PYZsq{}, \PYZsq{}Москва\PYZsq{}]}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Москва}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ленинград}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Одесса}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Севастополь}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Москва}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} False
+\end{Verbatim}
+            
+    \subsection{02.07. Tuple (кортежы)
+}\label{tuple-ux43aux43eux440ux442ux435ux436ux44b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{salary\PYZus{}tuple} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{1200}\PY{p}{,} \PY{l+m+mi}{1300}\PY{p}{,} \PY{l+m+mi}{900}\PY{p}{,} \PY{l+m+mi}{800}\PY{p}{)}
+         \PY{n+nb}{type}\PY{p}{(}\PY{n}{salary\PYZus{}tuple}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} tuple
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{salary\PYZus{}tuple}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{salary\PYZus{}tuple}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{500}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        TypeError                                 Traceback (most recent call last)
+
+        <ipython-input-50-3f0ae04f0e96> in <module>()
+          1 print(salary\_tuple[0])
+    ----> 2 salary\_tuple[0] = 500
+    
+
+        TypeError: 'tuple' object does not support item assignment
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} кортеж из одного элемента задается так:}
+         \PY{n}{t} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{} без запятой получится строка}
+         \PY{n+nb}{type}\PY{p}{(} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} str
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{} функция zip}
+         \PY{n}{salaries} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{1200}\PY{p}{,} \PY{l+m+mi}{1300}\PY{p}{,} \PY{l+m+mi}{900}\PY{p}{,} \PY{l+m+mi}{800}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{]}
+         \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Robert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jane}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Liza}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Richard}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{John}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{salaries\PYZus{}by\PYZus{}names} \PY{o}{=} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{names}\PY{p}{,} \PY{n}{salaries}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(salaries\PYZus{}by\PYZus{}names)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{salaries\PYZus{}by\PYZus{}names}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[('Robert', 1000), ('Jane', 1200), ('Liza', 1300), ('Richard', 900), ('John', 800)]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n+nb}{list} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{p}{]}\PY{p}{[}\PY{p}{]}\PY{p}{[}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+          File "<ipython-input-54-998510712b29>", line 1
+        list = [[0,1][][][]]
+                      \^{}
+    SyntaxError: invalid syntax
+    
+
+    \end{Verbatim}
+
+    \subsection{02.08. Множества (set)
+}\label{ux43cux43dux43eux436ux435ux441ux442ux432ux430-set}
+
+Набор неповторяющихся элементов в случайном порядке
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{data\PYZus{}scientist\PYZus{}skills} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SQL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tableau}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Git}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{data\PYZus{}engineer\PYZus{}skills} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Java}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scala}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Git}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SQL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hadoop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{} логическое ИЛИ – что нужно знать data\PYZhy{}scientst, который по совместительству data\PYZhy{}engineer}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills}\PY{o}{.}\PY{n}{union}\PY{p}{(}\PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills} \PY{o}{|} \PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Scala', 'Python', 'SAS', 'SQL', 'Hadoop', 'R', 'Git', 'Tableau', 'Java'\}
+\{'Scala', 'Python', 'SAS', 'SQL', 'Hadoop', 'R', 'Git', 'Tableau', 'Java'\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{} логическое И – что нужно знать и data\PYZhy{}scientst и data\PYZhy{}engineer}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills} \PY{o}{\PYZam{}} \PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'SQL', 'Python', 'Git'\}
+\{'SQL', 'Python', 'Git'\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} разность множеств – что знает data\PYZhy{}scientist, но не знает data\PYZhy{}engineer (и наоборот)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills} \PY{o}{\PYZhy{}} \PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}engineer\PYZus{}skills} \PY{o}{\PYZhy{}} \PY{n}{data\PYZus{}scientist\PYZus{}skills}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'SAS', 'R', 'Tableau'\}
+\{'SAS', 'R', 'Tableau'\}
+\{'Scala', 'Hadoop', 'Java'\}
+\{'Scala', 'Hadoop', 'Java'\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{c+c1}{\PYZsh{} симметричная разность множеств – что такого знают data\PYZhy{}scientist и data\PYZhy{}engineer, чего не знают они оба}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills}\PY{o}{.}\PY{n}{symmetric\PYZus{}difference}\PY{p}{(}\PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills} \PY{o}{\PYZca{}} \PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}engineer\PYZus{}skills}\PY{o}{.}\PY{n}{symmetric\PYZus{}difference}\PY{p}{(}\PY{n}{data\PYZus{}scientist\PYZus{}skills}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{data\PYZus{}engineer\PYZus{}skills} \PY{o}{\PYZca{}} \PY{n}{data\PYZus{}scientist\PYZus{}skills}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'Scala', 'Tableau', 'SAS', 'Hadoop', 'R', 'Java'\}
+\{'Scala', 'Tableau', 'SAS', 'Hadoop', 'R', 'Java'\}
+\{'Scala', 'Tableau', 'SAS', 'Hadoop', 'R', 'Java'\}
+\{'Scala', 'Tableau', 'SAS', 'Hadoop', 'R', 'Java'\}
+
+    \end{Verbatim}
+
+    \subsection{02.09. Словари }\label{ux441ux43bux43eux432ux430ux440ux438}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{staff\PYZus{}salary} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Robert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{800}\PY{p}{,} 
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jane}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{2000}\PY{p}{,} 
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Liza}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1300}\PY{p}{,} 
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Richard}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{800}\PY{p}{,} 
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1100}\PY{p}{,} 
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1300}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{} обращение к элементу словаря}
+         \PY{n}{staff\PYZus{}salary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jane}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} 2000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{} добавляем элемент в словарь}
+         \PY{n}{staff\PYZus{}salary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rayan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{2000}
+         \PY{n}{staff\PYZus{}salary}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} \{'Bob': 1300,
+          'Jane': 2000,
+          'Liza': 1300,
+          'Rayan': 2000,
+          'Richard': 800,
+          'Robert': 800,
+          'Tom': 1100\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{staff\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Robert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{800}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bonus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{\PYZcb{}}\PY{p}{,} 
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jane}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bonus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{300}\PY{p}{\PYZcb{}}\PY{p}{,} 
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Liza}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1300}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bonus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{\PYZcb{}}\PY{p}{,} 
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Richard}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bonus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1200}\PY{p}{\PYZcb{}}
+         \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{staff\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Robert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bonus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} 200
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{} удаляем элемент из словаря}
+         \PY{k}{del}\PY{p}{(}\PY{n}{staff\PYZus{}salary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Liza}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{staff\PYZus{}salary}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} \{'Bob': 1300,
+          'Jane': 2000,
+          'Rayan': 2000,
+          'Richard': 800,
+          'Robert': 800,
+          'Tom': 1100\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{staff\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oleg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyError                                  Traceback (most recent call last)
+
+        <ipython-input-66-27167a90a5f5> in <module>()
+    ----> 1 staff\_dict['Oleg']
+    
+
+        KeyError: 'Oleg'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} безопасно получаем значение по ключу}
+         \PY{n}{staff\PYZus{}dict}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oleg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Found}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}staff\PYZus{}dict.get(\PYZsq{}Robert\PYZsq{}, \PYZsq{}Not Found\PYZsq{})}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} 'Not Found'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{} получаем только ключи/значения из словаря (очень пригодиться в циклах)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{staff\PYZus{}salary}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{staff\PYZus{}salary}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{staff\PYZus{}salary}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+dict\_keys(['Robert', 'Jane', 'Richard', 'Tom', 'Bob', 'Rayan'])
+dict\_values([800, 2000, 800, 1100, 1300, 2000])
+dict\_items([('Robert', 800), ('Jane', 2000), ('Richard', 800), ('Tom', 1100), ('Bob', 1300), ('Rayan', 2000)])
+
+    \end{Verbatim}
+
+    \subsection{02.10. Циклы }\label{ux446ux438ux43aux43bux44b}
+
+    \subsubsection{Цикл while}\label{ux446ux438ux43aux43b-while}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{k}{while} \PY{n}{x} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+         \PY{c+c1}{\PYZsh{}     x \PYZhy{}= 1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5
+4
+3
+2
+1
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{7}
+         \PY{k}{while} \PY{n}{x} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+             \PY{k}{if} \PY{n}{x} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{} четное число}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{} нечетное число}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+7 - нечетное число
+6 - четное число
+5 - нечетное число
+4 - четное число
+3 - нечетное число
+2 - четное число
+1 - нечетное число
+
+    \end{Verbatim}
+
+    \subsubsection{Цикл for}\label{ux446ux438ux43aux43b-for}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{c+c1}{\PYZsh{} итерация по строкам}
+         \PY{n}{company\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orange}\PY{l+s+s1}{\PYZsq{}}
+         \PY{k}{for} \PY{n}{letter} \PY{o+ow}{in} \PY{n}{company\PYZus{}name}\PY{p}{:}
+             \PY{n}{letter} \PY{o}{=} \PY{n}{letter}\PY{o}{.}\PY{n}{capitalize}\PY{p}{(}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{letter}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+O
+R
+A
+N
+G
+E
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{c+c1}{\PYZsh{} итерация по строкам}
+         \PY{n}{companies\PYZus{}capitalization} \PY{o}{=} \PY{p}{[}
+          \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{1.3}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Maxisoft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{1.5}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Headbook}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nicola}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{2.2}\PY{p}{]}
+         \PY{p}{]}
+         \PY{k}{for} \PY{n}{company} \PY{o+ow}{in} \PY{n}{companies\PYZus{}capitalization}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{company}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capitalization is}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{company}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Orange capitalization is 1.3
+Maxisoft capitalization is 1.5
+Headbook capitalization is 0.8
+Nicola capitalization is 2.2
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{} список списков списков. Список, который состоит из списков в котором есть списки }
+         \PY{n}{countries\PYZus{}temperature} \PY{o}{=} \PY{p}{[}
+          \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thailand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{75.2}\PY{p}{,} \PY{l+m+mi}{77}\PY{p}{,} \PY{l+m+mf}{78.8}\PY{p}{,} \PY{l+m+mf}{73.4}\PY{p}{,} \PY{l+m+mi}{68}\PY{p}{,} \PY{l+m+mf}{75.2}\PY{p}{,} \PY{l+m+mi}{77}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Germany}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{57.2}\PY{p}{,} \PY{l+m+mf}{55.4}\PY{p}{,} \PY{l+m+mi}{59}\PY{p}{,} \PY{l+m+mi}{59}\PY{p}{,} \PY{l+m+mf}{53.6}\PY{p}{,} \PY{l+m+mf}{55.4}\PY{p}{,} \PY{l+m+mf}{57.2}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Russia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{35.6}\PY{p}{,} \PY{l+m+mf}{37.4}\PY{p}{,} \PY{l+m+mf}{39.2}\PY{p}{,} \PY{l+m+mi}{41}\PY{p}{,} \PY{l+m+mf}{42.8}\PY{p}{,} \PY{l+m+mf}{39.2}\PY{p}{,} \PY{l+m+mf}{35.6}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+          \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Poland}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mf}{53.6}\PY{p}{,} \PY{l+m+mf}{57.2}\PY{p}{,} \PY{l+m+mf}{55.4}\PY{p}{,} \PY{l+m+mf}{55.4}\PY{p}{,} \PY{l+m+mf}{51.8}\PY{p}{]}\PY{p}{]}\PY{p}{,}
+         \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{k}{for} \PY{n}{country} \PY{o+ow}{in} \PY{n}{countries\PYZus{}temperature}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{country}\PY{p}{)} \PY{c+c1}{\PYZsh{} шаг 1. просто выводим элементы списка}
+             
+             \PY{c+c1}{\PYZsh{} cel\PYZus{}temp = sum(country[1]) / len(country[1]\PYZhy{}32) * 5 / 9}
+             \PY{c+c1}{\PYZsh{} print(f\PYZsq{}(country[0]) \PYZhy{} \PYZob{}round(cel\PYZus{}temp, 2))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['Thailand', [75.2, 77, 78.8, 73.4, 68, 75.2, 77]]
+['Germany', [57.2, 55.4, 59, 59, 53.6, 55.4, 57.2]]
+['Russia', [35.6, 37.4, 39.2, 41, 42.8, 39.2, 35.6]]
+['Poland', [50, 50, 53.6, 57.2, 55.4, 55.4, 51.8]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{k}{for} \PY{n}{country} \PY{o+ow}{in} \PY{n}{countries\PYZus{}temperature}\PY{p}{:}
+             \PY{n}{average\PYZus{}temp} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{temperature} \PY{o+ow}{in} \PY{n}{country}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{average\PYZus{}temp} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{temperature} \PY{o}{\PYZhy{}} \PY{l+m+mi}{32}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{5} \PY{o}{/} \PY{l+m+mi}{9}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{average\PYZus{}temp}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{country}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+23.86
+13.71
+3.71
+11.86
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{c+c1}{\PYZsh{} итерация по словарям}
+         \PY{c+c1}{\PYZsh{} так бы было без цикла}
+         \PY{n}{salaries} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{John}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1200}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Steven}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1000}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Liza}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1500}
+         \PY{p}{\PYZcb{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{John}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s salary:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{salaries}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{John}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mary}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s salary:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{salaries}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{John}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Steven}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s salary:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{salaries}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{John}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Liza}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s salary:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{salaries}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{John}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+John's salary: 1200
+Mary's salary: 1200
+Steven's salary: 1200
+Liza's salary: 1200
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{c+c1}{\PYZsh{} используем цикл}
+         \PY{k}{for} \PY{n}{person}\PY{p}{,} \PY{n}{salary} \PY{o+ow}{in} \PY{n}{salaries}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{person}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s salary: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{salary}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+John's salary: 1200
+Mary's salary: 500
+Steven's salary: 1000
+Liza's salary: 1500
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{c+c1}{\PYZsh{} добавим уровень з/п}
+         \PY{k}{for} \PY{n}{person} \PY{o+ow}{in} \PY{n}{salaries}\PY{p}{:}
+             \PY{n}{status} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{if} \PY{n}{salaries}\PY{p}{[}\PY{n}{person}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1000}\PY{p}{:}
+                 \PY{n}{status} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{above average}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{status} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{below average}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{person}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s salary: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{salaries}\PY{p}{[}\PY{n}{person}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ (}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{status}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+John's salary: 1200 (above average)
+Mary's salary: 500 (below average)
+Steven's salary: 1000 (below average)
+Liza's salary: 1500 (above average)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} добавим нумерацию}
+         \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{person} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{salaries}\PY{p}{)}\PY{p}{:}
+             \PY{n}{status} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{if} \PY{n}{salaries}\PY{p}{[}\PY{n}{person}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1000}\PY{p}{:}
+                 \PY{n}{status} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{above average}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{status} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{below average}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{. }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{person}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s salary: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{salaries}\PY{p}{[}\PY{n}{person}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ (}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{status}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1. John's salary: 1200 (above average)
+2. Mary's salary: 500 (below average)
+3. Steven's salary: 1000 (below average)
+4. Liza's salary: 1500 (above average)
+
+    \end{Verbatim}
+
+    \subsection{break, pass, continue}\label{break-pass-continue}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{phrase} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{640Кб должно хватить для любых задач. Билл Гейтс (по легенде)}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{k}{for} \PY{n}{letter} \PY{o+ow}{in} \PY{n}{phrase}\PY{p}{:}
+             \PY{k}{if} \PY{n}{letter} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{k}{break}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{letter}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{finish loop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6
+4
+0
+К
+б
+finish loop
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{k}{for} \PY{n}{letter} \PY{o+ow}{in} \PY{n}{phrase}\PY{p}{:}
+             \PY{k}{if} \PY{n}{letter} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{k}{continue}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{letter}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{finish loop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6
+4
+0
+К
+б
+д
+о
+л
+ж
+н
+о
+х
+в
+а
+т
+и
+т
+ь
+д
+л
+я
+л
+ю
+б
+ы
+х
+з
+а
+д
+а
+ч
+.
+Б
+и
+л
+л
+Г
+е
+й
+т
+с
+(
+п
+о
+л
+е
+г
+е
+н
+д
+е
+)
+finish loop
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{k}{for} \PY{n}{letter} \PY{o+ow}{in} \PY{n}{phrase}\PY{p}{:}
+              \PY{k}{if} \PY{n}{letter} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                  \PY{k}{pass}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{letter}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{finish loop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+6
+4
+0
+К
+б
+ 
+д
+о
+л
+ж
+н
+о
+ 
+х
+в
+а
+т
+и
+т
+ь
+ 
+д
+л
+я
+ 
+л
+ю
+б
+ы
+х
+ 
+з
+а
+д
+а
+ч
+.
+ 
+Б
+и
+л
+л
+ 
+Г
+е
+й
+т
+с
+ 
+(
+п
+о
+ 
+л
+е
+г
+е
+н
+д
+е
+)
+finish loop
+
+    \end{Verbatim}
+
+    \subsubsection{Функция
+range}\label{ux444ux443ux43dux43aux446ux438ux44f-range}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)} \PY{c+c1}{\PYZsh{} генерирует последовательность чисел}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} range(0, 10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:} [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{} с указанием левой и правой границы}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{c+c1}{\PYZsh{} третий аргумент \PYZhy{} шаг}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+8
+13
+18
+
+    \end{Verbatim}
+
+    \subsubsection{Практика}\label{ux43fux440ux430ux43aux442ux438ux43aux430}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{cook\PYZus{}book} \PY{o}{=} \PY{p}{\PYZob{}}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{салат}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{сыр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{томаты}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{огурцы}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{маслины}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{оливковое масло}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{мл}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{салат}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{перец}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+             \PY{p}{]}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{пицца}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{сыр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{колбаса}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{бекон}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{оливки}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{томаты}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{тесто}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}   
+             \PY{p}{]}\PY{p}{,}
+           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{лимонад}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{лимон}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{шт}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{вода}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{мл}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{сахар}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+              \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{лайм}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{гр}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,}    
+             \PY{p}{]}
+         \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{person\PYZus{}count} \PY{o}{=} \PY{l+m+mi}{3} \PY{c+c1}{\PYZsh{} на скольких людей готовить}
+         \PY{n}{shop\PYZus{}list} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}} \PY{c+c1}{\PYZsh{} создаем словарь список покупок}
+         
+         \PY{k}{for} \PY{n}{dish} \PY{o+ow}{in} \PY{n}{cook\PYZus{}book}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{}print(dish)}
+             \PY{k}{for} \PY{n}{ingridient} \PY{o+ow}{in} \PY{n}{cook\PYZus{}book}\PY{p}{[}\PY{n}{dish}\PY{p}{]}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}print(ingridient)}
+                 \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{ingridient}\PY{p}{)}
+                 \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ingridient}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{n}{person\PYZus{}count}
+         \PY{c+c1}{\PYZsh{}        shop\PYZus{}list[new\PYZus{}shop\PYZus{}list\PYZus{}item[\PYZsq{}ingridient\PYZus{}name\PYZsq{}]] = new\PYZus{}shop\PYZus{}list\PYZus{}item}
+         \PY{c+c1}{\PYZsh{}print(shop\PYZus{}list)  }
+                 \PY{c+c1}{\PYZsh{} если название элемента нет в словаре, записываем, иначе складываем: обращаемся к словарю по элементу кол\PYZhy{}во и добавляем значение по ключу количества}
+                 \PY{k}{if} \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{shop\PYZus{}list}\PY{p}{:}
+                     \PY{n}{shop\PYZus{}list}\PY{p}{[}\PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item} 
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{shop\PYZus{}list}\PY{p}{[}\PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  
+                     
+         \PY{n}{shop\PYZus{}list}            
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} \{'бекон': \{'ingridient\_name': 'бекон', 'measure': 'гр', 'quantity': 90\},
+          'вода': \{'ingridient\_name': 'вода', 'measure': 'мл', 'quantity': 600\},
+          'колбаса': \{'ingridient\_name': 'колбаса', 'measure': 'гр', 'quantity': 90\},
+          'лайм': \{'ingridient\_name': 'лайм', 'measure': 'гр', 'quantity': 60\},
+          'лимон': \{'ingridient\_name': 'лимон', 'measure': 'шт', 'quantity': 3\},
+          'маслины': \{'ingridient\_name': 'маслины', 'measure': 'гр', 'quantity': 30\},
+          'огурцы': \{'ingridient\_name': 'огурцы', 'measure': 'гр', 'quantity': 60\},
+          'оливки': \{'ingridient\_name': 'оливки', 'measure': 'гр', 'quantity': 30\},
+          'оливковое масло': \{'ingridient\_name': 'оливковое масло',
+           'measure': 'мл',
+           'quantity': 60\},
+          'перец': \{'ingridient\_name': 'перец', 'measure': 'гр', 'quantity': 60\},
+          'салат': \{'ingridient\_name': 'салат', 'measure': 'гр', 'quantity': 30\},
+          'сахар': \{'ingridient\_name': 'сахар', 'measure': 'гр', 'quantity': 30\},
+          'сыр': \{'ingridient\_name': 'сыр', 'measure': 'гр', 'quantity': 210\},
+          'тесто': \{'ingridient\_name': 'тесто', 'measure': 'гр', 'quantity': 300\},
+          'томаты': \{'ingridient\_name': 'томаты', 'measure': 'гр', 'quantity': 120\}\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k}{for} \PY{n}{shop\PYZus{}list\PYZus{}item} \PY{o+ow}{in} \PY{n}{shop\PYZus{}list}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}shop\PYZus{}list\PYZus{}item[\PYZdq{}ingridient\PYZus{}name\PYZdq{}]\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}shop\PYZus{}list\PYZus{}item[\PYZdq{}quantity\PYZdq{}]\PYZcb{}}\PY{l+s+si}{\PYZob{}shop\PYZus{}list\PYZus{}item[\PYZdq{}measure\PYZdq{}]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+сыр, 210гр
+томаты, 120гр
+огурцы, 60гр
+маслины, 30гр
+оливковое масло, 60мл
+салат, 30гр
+перец, 60гр
+колбаса, 90гр
+бекон, 90гр
+оливки, 30гр
+тесто, 300гр
+лимон, 3шт
+вода, 600мл
+сахар, 30гр
+лайм, 60гр
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{person\PYZus{}count} \PY{o}{=} \PY{l+m+mi}{3}
+         \PY{n}{shop\PYZus{}list} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{dish} \PY{o+ow}{in} \PY{n}{cook\PYZus{}book}\PY{p}{:}
+             \PY{k}{for} \PY{n}{ingridient} \PY{o+ow}{in} \PY{n}{cook\PYZus{}book}\PY{p}{[}\PY{n}{dish}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{ingridient}\PY{p}{)}
+                 \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ingridient}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{n}{person\PYZus{}count}
+                 \PY{k}{if} \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{shop\PYZus{}list}\PY{p}{:}
+                     \PY{n}{shop\PYZus{}list}\PY{p}{[}\PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{shop\PYZus{}list}\PY{p}{[}\PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingridient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{new\PYZus{}shop\PYZus{}list\PYZus{}item}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{quantity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{shop\PYZus{}list}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:} \{'бекон': \{'ingridient\_name': 'бекон', 'measure': 'гр', 'quantity': 90\},
+          'вода': \{'ingridient\_name': 'вода', 'measure': 'мл', 'quantity': 600\},
+          'колбаса': \{'ingridient\_name': 'колбаса', 'measure': 'гр', 'quantity': 90\},
+          'лайм': \{'ingridient\_name': 'лайм', 'measure': 'гр', 'quantity': 60\},
+          'лимон': \{'ingridient\_name': 'лимон', 'measure': 'шт', 'quantity': 3\},
+          'маслины': \{'ingridient\_name': 'маслины', 'measure': 'гр', 'quantity': 30\},
+          'огурцы': \{'ingridient\_name': 'огурцы', 'measure': 'гр', 'quantity': 60\},
+          'оливки': \{'ingridient\_name': 'оливки', 'measure': 'гр', 'quantity': 30\},
+          'оливковое масло': \{'ingridient\_name': 'оливковое масло',
+           'measure': 'мл',
+           'quantity': 60\},
+          'перец': \{'ingridient\_name': 'перец', 'measure': 'гр', 'quantity': 60\},
+          'салат': \{'ingridient\_name': 'салат', 'measure': 'гр', 'quantity': 30\},
+          'сахар': \{'ingridient\_name': 'сахар', 'measure': 'гр', 'quantity': 30\},
+          'сыр': \{'ingridient\_name': 'сыр', 'measure': 'гр', 'quantity': 210\},
+          'тесто': \{'ingridient\_name': 'тесто', 'measure': 'гр', 'quantity': 300\},
+          'томаты': \{'ingridient\_name': 'томаты', 'measure': 'гр', 'quantity': 120\}\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{k}{for} \PY{n}{shop\PYZus{}list\PYZus{}item} \PY{o+ow}{in} \PY{n}{shop\PYZus{}list}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}shop\PYZus{}list\PYZus{}item[\PYZdq{}ingridient\PYZus{}name\PYZdq{}]\PYZcb{}}\PY{l+s+s1}{, }\PY{l+s+si}{\PYZob{}shop\PYZus{}list\PYZus{}item[\PYZdq{}quantity\PYZdq{}]\PYZcb{}}\PY{l+s+si}{\PYZob{}shop\PYZus{}list\PYZus{}item[\PYZdq{}measure\PYZdq{}]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+сыр, 210гр
+томаты, 120гр
+огурцы, 60гр
+маслины, 30гр
+оливковое масло, 60мл
+салат, 30гр
+перец, 60гр
+колбаса, 90гр
+бекон, 90гр
+оливки, 30гр
+тесто, 300гр
+лимон, 3шт
+вода, 600мл
+сахар, 30гр
+лайм, 60гр
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
